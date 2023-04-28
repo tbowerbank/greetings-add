@@ -53,7 +53,7 @@ jobs:
         name: greetings.jar
         path: |
           build/libs
-          test_script.sh
+          test-script.sh
           
     - name: Set output
       id: setoutput
