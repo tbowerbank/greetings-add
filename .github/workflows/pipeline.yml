@@ -51,7 +51,10 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: greetings.jar
-        path: build/libs
+        path: |
+          build/libs
+          test_scriptt.sh
+          
     - name: Set output
       id: setoutput
       run: echo jarpath=build/libs/greetings-add-${{ github.event.inputs.myVersion }}${{ env.TDS }}.jar >> $GITHUB_OUTPUT
@@ -62,3 +65,17 @@ jobs:
     needs: build
     steps:
       - run: echo ${{needs.build.outputs.artifact-path}}
+  
+  test-run:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download candidate artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: greetings-jar
+      - name: Execute test
+        shell: bash
+        run: |
+          chmod +x ./test-script.sh
+          ./test-script.sh ${{ needs.build.outputs.artifact-path }} ${{ github.event.inputs.myValues }}
