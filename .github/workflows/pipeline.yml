@@ -86,7 +86,7 @@ jobs:
     
     steps: 
     - id: report-count
-      uses: <your github user>/arg-count-action@main
+      uses: tbowerbank/arg-count-action@main
       with: 
         arguments-to-count: ${{ github.event.inputs.myValues }}
     - run: echo 
